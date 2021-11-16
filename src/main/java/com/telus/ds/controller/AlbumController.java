@@ -22,7 +22,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @RestController
-@RequestMapping("/")
+@RequestMapping("/album")
 public class AlbumController {
 
 	@Autowired
@@ -42,7 +42,7 @@ public class AlbumController {
 		return convetToDTO(albumFound);
 	}
 	
-	@GetMapping("/getAlbum")
+	@GetMapping("/getAlbums")
 	public List<Album> getAlbums() {
 		return albumService.getAlbums();
 	}

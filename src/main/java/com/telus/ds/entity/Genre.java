@@ -30,14 +30,14 @@ public class Genre {
 	
 	public Genre(Integer genre_id, String genre_name) {
 		super();
-		this.genre_id = genre_id;
+		this.genreId = genre_id;
 		this.genre_name = genre_name;
 	}
         
         @Id
 	@Column(name="GENRE_ID", updatable=false)
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer genre_id;
+	private Integer genreId;
 	
 	@Column(name="GENRE_NAME", updatable=false)
 	@Length(max = 12, min = 12)

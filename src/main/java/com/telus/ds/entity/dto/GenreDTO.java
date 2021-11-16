@@ -11,6 +11,6 @@ import lombok.ToString;
 @ToString
 public class GenreDTO {
     
-    private Integer genre_name;
+    private String genreName;
     private LocalDateTime creationDate;
 }

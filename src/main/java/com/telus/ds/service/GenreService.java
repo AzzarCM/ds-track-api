@@ -9,12 +9,13 @@ import org.springframework.stereotype.Service;
 import com.telus.ds.entity.Genre;
 import com.telus.ds.repository.GenreRepository;
 
+@Service
 public class GenreService {
         @Autowired
 	private GenreRepository GenreRepository;
 	
-	public Genre getGenre(String genre_id) {
-		return GenreRepository.findById(genre_id);
+	public Genre getGenre(Integer genre_id) {
+		return GenreRepository.findGenreById(genre_id);
 	}
 	
 	public Genre create(Genre genre) {
