@@ -13,35 +13,40 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.telus.ds.entity.Track;
 import com.telus.ds.entity.dto.TrackDTO;
+import com.telus.ds.exception.ResourceNotFoundException;
 import com.telus.ds.service.TrackService;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @RestController
-@RequestMapping("/track/")
+@RequestMapping("/")
 public class TrackController {
 	
 	@Autowired
-	private TrackService trackService;
+	TrackService trackService;
 	
-	@Autowired
-	private ModelMapper modelMapper;
+	 @Autowired
+	 private ModelMapper modelMapper;
+	 
+	@GetMapping("/getTrack")
+	public TrackDTO getTrack(@RequestParam("isrc") String isrc) {
+		
+		Track trackFound = trackService.getTrack(isrc);
+		
+		if (trackFound == null) {
+			throw new ResourceNotFoundException("Track not found in DS repository with ISRC=" + isrc);
+		}
+		
+		return convertToDTO(trackFound);
+	}
 	
-	@GetMapping("/")
+	@GetMapping("/getTracks")
 	public List<Track> getTracks() {
 		return trackService.getTracks();
 	}
 	
-	@GetMapping("/getTrack")
-	public TrackDTO getTrack(@RequestParam("isrc") String isrc) {
-		Track track = trackService.getTrack(isrc);
-		
-		//TrackDTO trackDTO = new TrackDTO(track.getIsrc(), track.getDuration(), track.getCreationDate());
-		
-		//return trackDTO;
-		return convertToDTO(track);
-	}
+
 	
 	@PostMapping("/")
 	public Track create(@RequestBody Track track) {
@@ -53,6 +58,7 @@ public class TrackController {
 		return modelMapper.map(track, TrackDTO.class);
 	}
 	
+	@SuppressWarnings("unused")
 	private Track convertToEntity(TrackDTO trackDTO) {
 		return modelMapper.map(trackDTO, Track.class);
 	}

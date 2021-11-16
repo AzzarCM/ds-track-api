@@ -13,7 +13,7 @@ import com.telus.ds.repository.TrackRepository;
 public class TrackService {
 	
 	@Autowired
-	TrackRepository trackRepository;
+	private TrackRepository trackRepository;
 	
 	public Track getTrack(String isrc) {
 		return trackRepository.findByIsrc(isrc);

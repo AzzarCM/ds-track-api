@@ -6,5 +6,9 @@
 - H2
 - Lombok
 - MySQL
-- ModelMapper
-
+- ModelMapper and DTOs
+- Swagger
+- OpenAPI
+- Exceptions Handling
+- Mockito
+- JUnit
