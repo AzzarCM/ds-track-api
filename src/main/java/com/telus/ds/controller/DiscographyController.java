@@ -1,5 +1,6 @@
 package com.telus.ds.controller;
 
+import com.telus.ds.entity.Discography;
 import com.telus.ds.entity.dto.DiscographyDTO;
 import com.telus.ds.exception.ResourceNotFoundException;
 import com.telus.ds.service.DiscographyService;
@@ -13,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @Slf4j
 @RestController
-@RequestMapping("/discography")
+@RequestMapping("/")
 public class DiscographyController {
 
   @Autowired
@@ -29,7 +30,7 @@ public class DiscographyController {
 
     if(discographyFound == null){
       throw new ResourceNotFoundException("Discography not found in" +
-        " DS repository with year=" + isrc);
+        " DS repository with year=" + year);
     }
 
     return convertToDTO(discographyFound);
