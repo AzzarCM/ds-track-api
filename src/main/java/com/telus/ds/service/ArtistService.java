@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 public class ArtistService {
     @Autowired
     private ArtistRepository artistRepository;
-    public Artist findById(Integer id){
+    public Artist findById(Long id){
         return artistRepository.findArtistById(id);
     }
 }

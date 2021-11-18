@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 import com.telus.ds.entity.Track;
 
 @Repository
-public interface TrackRepository extends JpaRepository<Track, Integer>  {
+public interface TrackRepository extends JpaRepository<Track, Long>  {
 	
 	Track findByIsrc(String isrc);
 }

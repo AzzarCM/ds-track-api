@@ -11,7 +11,7 @@ import javax.validation.constraints.NotNull;
 @Getter
 @Setter
 @ToString
-@Table(name = "DISCOGRAPHY")
+@Table(name = "DISCOGRAPHYS")
 public class Discography {
   public Discography(){}
 
@@ -26,7 +26,7 @@ public class Discography {
   @Id
   @Column(name="DISCOGRAPHY_ID", updatable = false)
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Integer id;
+  private Long id;
 
   @Column(name="COMMERCIAL_NAME", updatable = false)
   @NotNull(message = "Commercial name is required")

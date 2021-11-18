@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.telus.ds.entity.Artist;
 import com.telus.ds.entity.Track;
 import com.telus.ds.entity.dto.TrackDTO;
 import com.telus.ds.exception.ResourceNotFoundException;
@@ -41,6 +42,18 @@ public class TrackController {
 		return convertToDTO(trackFound);
 	}
 	
+	@GetMapping("/getTrack2")
+	public Track getTrack2(@RequestParam("isrc") String isrc) {
+		
+		Track trackFound = trackService.getTrack(isrc);
+		
+		if (trackFound == null) {
+			throw new ResourceNotFoundException("Track not found in DS repository with ISRC=" + isrc);
+		}
+		
+		return trackFound;
+	}
+	
 	@GetMapping("/getTracks")
 	public List<Track> getTracks() {
 		return trackService.getTracks();
@@ -55,6 +68,7 @@ public class TrackController {
 	}
 	
 	private TrackDTO convertToDTO(Track track) {
+		modelMapper.map(track.getArtistObj(), Artist.class);
 		return modelMapper.map(track, TrackDTO.class);
 	}
 	

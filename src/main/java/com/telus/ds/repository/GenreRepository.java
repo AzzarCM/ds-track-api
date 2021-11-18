@@ -9,5 +9,5 @@ import com.telus.ds.entity.Genre;
 @Repository
 public interface GenreRepository extends JpaRepository<Genre, Integer>{
     
-    Genre findGenreByGenreId(Integer genre_id);
+    Genre findByGenreId(Integer genre_id);
 }

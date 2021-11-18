@@ -21,7 +21,7 @@ public class ArtistController {
     private ModelMapper modelMapper;
 
     @GetMapping("/getArtist")
-    public ArtistDTO getArtist(@RequestParam("id") Integer id){
+    public ArtistDTO getArtist(@RequestParam("id") Long id){
         Artist artist = artistService.findById(id);
         if(artist == null ){
             throw new ResourceNotFoundException("Artist not found with id=" + id);

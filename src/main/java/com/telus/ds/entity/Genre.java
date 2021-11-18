@@ -15,6 +15,7 @@ import org.hibernate.validator.constraints.Length;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+
 /**
  *
  * @author axel.hernandez02
@@ -24,27 +25,28 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-@Table(name = "GENRE")
+@Table(name = "GENRES")
 public class Genre {
-    public Genre() {}
-	
-	public Genre(Integer genre_id, String genre_name) {
-		super();
-		this.genreId = genre_id;
-		this.genre_name = genre_name;
+	public Genre() {
 	}
-        
-        @Id
-	@Column(name="GENRE_ID", updatable=false)
+
+	public Genre(Long genreId, String genre_name) {
+		super();
+		this.genreId = genreId;
+		this.genreName = genre_name;
+	}
+
+	@Id
+	@Column(name = "GENRE_ID", updatable = false)
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer genreId;
-	
-	@Column(name="GENRE_NAME", updatable=false)
+	private Long genreId;
+
+	@Column(name = "GENRE_NAME", updatable = false)
 	@Length(max = 12, min = 12)
 	@NotNull(message = "Genre Name is required")
-	private String genre_name;
-        
-        @Column(name="CREATION_DATE", updatable=false)
+	private String genreName;
+
+	@Column(name = "CREATION_DATE", updatable = false)
 	@NotNull(message = "CREATION DATE is required")
 	private LocalDateTime creationDate;
 }

@@ -14,8 +14,8 @@ public class GenreService {
         @Autowired
 	private GenreRepository GenreRepository;
 	
-	public Genre getGenre(Integer genre_id) {
-		return GenreRepository.findGenreById(genre_id);
+	public Genre getGenre(Integer genreId) {
+		return GenreRepository.findByGenreId(genreId);
 	}
 	
 	public Genre create(Genre genre) {

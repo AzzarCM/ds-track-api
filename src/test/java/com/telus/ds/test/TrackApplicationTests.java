@@ -18,8 +18,10 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.telus.ds.TrackApplication;
 import com.telus.ds.controller.TrackController;
+import com.telus.ds.entity.Artist;
 import com.telus.ds.entity.Track;
 import com.telus.ds.entity.dto.TrackDTO;
+import com.telus.ds.repository.ArtistRepository;
 import com.telus.ds.repository.TrackRepository;
 import com.telus.ds.service.TrackService;
 
@@ -37,11 +39,16 @@ class TrackApplicationTests {
 	@Autowired
 	private TrackController trackController;
 
+	@Autowired
+	private ArtistRepository artistRepository;
+	
 	@Test
 	void getTrackController() {
 		// with
+		Artist artist = artistRepository.findArtistById(1L); //getting instance from data.sql
+		
 		TrackService trackServiceMock = mock(TrackService.class);
-		Track track = new Track("USVT10300001", 232106);
+		Track track = new Track("USVT10300001", 232106, artist);
 
 		// when
 		Mockito.when(trackServiceMock.getTrack("USVT10300001")).thenReturn(track);
@@ -54,8 +61,9 @@ class TrackApplicationTests {
 	@Test
 	void getTrackService() {
 		// with
+		Artist artist = new Artist("ArtistName", "5555-5555", 55);
 		TrackRepository trackRepositoryMock = mock(TrackRepository.class);
-		Track track = new Track("USVT10300001", 232106);
+		Track track = new Track("USVT10300001", 232106, artist);
 
 		// when
 		Mockito.when(trackRepositoryMock.findByIsrc("USVT10300001")).thenReturn(track);
@@ -68,7 +76,9 @@ class TrackApplicationTests {
 	@Test
 	void saveTrackRepository() {
 		// with
-		Track track = new Track("USVT10300004", 232106);
+		Artist artist = artistRepository.findArtistById(1L); //getting instance from data.sql
+		
+		Track track = new Track("USVT10300004", 232106, artist);
 		track.setCreationDate(LocalDateTime.now());
 
 		// when
