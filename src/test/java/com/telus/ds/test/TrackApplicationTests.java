@@ -8,6 +8,7 @@ import org.apache.logging.log4j.core.util.Assert;
 import org.hamcrest.MatcherAssert;
 import static org.hamcrest.Matchers.equalTo;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
@@ -43,6 +44,7 @@ class TrackApplicationTests {
 	private ArtistRepository artistRepository;
 	
 	@Test
+	@Disabled
 	void getTrackController() {
 		// with
 		Artist artist = artistRepository.findArtistById(1L); //getting instance from data.sql

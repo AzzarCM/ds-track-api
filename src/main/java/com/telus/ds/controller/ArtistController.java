@@ -5,6 +5,7 @@ import com.telus.ds.entity.dto.ArtistDTO;
 import com.telus.ds.exception.ResourceNotFoundException;
 import com.telus.ds.service.ArtistService;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,6 +31,13 @@ public class ArtistController {
     }
 
     private ArtistDTO convertToDTO(Artist artist) {
+    	configModelMapper();
         return modelMapper.map(artist, ArtistDTO.class);
     }
+    
+	private void configModelMapper() {
+		if(!modelMapper.getConfiguration().getMatchingStrategy().equals(MatchingStrategies.LOOSE)){
+			modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.LOOSE);
+		}
+	}
 }

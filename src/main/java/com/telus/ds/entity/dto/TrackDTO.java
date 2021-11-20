@@ -14,5 +14,6 @@ public class TrackDTO {
 	private String isrc;
 	private Integer duration;
 	private LocalDateTime creationDate;
-	private ArtistDTO artistDTO;
+	private ArtistDTO artist;
+	
 }

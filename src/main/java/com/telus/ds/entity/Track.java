@@ -58,7 +58,6 @@ public class Track {
 	@NotNull(message = "CREATION DATE is required")
 	private LocalDateTime creationDate;
 	
-    //@Transient
     @ManyToOne(fetch = FetchType.LAZY )
     @JoinColumn(name = "ARTIST_ID", nullable = false)
     @NotNull(message = "Artist is required")

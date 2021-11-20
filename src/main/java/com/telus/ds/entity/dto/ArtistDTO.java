@@ -1,5 +1,7 @@
 package com.telus.ds.entity.dto;
 
+import java.util.List;
+
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -8,7 +10,10 @@ import lombok.ToString;
 @Setter
 @ToString
 public class ArtistDTO {
+	
     private String name;
-    private Integer age;
     private String phone;
+    private Integer age;
+    private List<TrackDTO> tracks;
+    
 }

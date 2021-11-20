@@ -1,8 +1,11 @@
 package com.telus.ds.controller;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
+import org.modelmapper.convention.MatchingStrategies;
+import org.modelmapper.spi.MatchingStrategy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,8 +30,8 @@ public class TrackController {
 	@Autowired
 	TrackService trackService;
 	
-	 @Autowired
-	 private ModelMapper modelMapper;
+	@Autowired
+	private ModelMapper modelMapper;
 	 
 	@GetMapping("/getTrack")
 	public TrackDTO getTrack(@RequestParam("isrc") String isrc) {
@@ -42,39 +45,34 @@ public class TrackController {
 		return convertToDTO(trackFound);
 	}
 	
-	@GetMapping("/getTrack2")
-	public Track getTrack2(@RequestParam("isrc") String isrc) {
-		
-		Track trackFound = trackService.getTrack(isrc);
-		
-		if (trackFound == null) {
-			throw new ResourceNotFoundException("Track not found in DS repository with ISRC=" + isrc);
-		}
-		
-		return trackFound;
-	}
-	
 	@GetMapping("/getTracks")
-	public List<Track> getTracks() {
-		return trackService.getTracks();
+	public List<TrackDTO> getTracks() {
+		return trackService.getTracks()
+				.stream()
+				.map(t -> convertToDTO(t))
+				.collect(Collectors.toList());
 	}
-	
-
 	
 	@PostMapping("/")
-	public Track create(@RequestBody Track track) {
+	public TrackDTO create(@RequestBody Track track) {
 		log.info("Creating a track");
-		return trackService.create(track);
+		return convertToDTO(trackService.create(track));
 	}
 	
 	private TrackDTO convertToDTO(Track track) {
-		modelMapper.map(track.getArtistObj(), Artist.class);
+		configModelMapper();
 		return modelMapper.map(track, TrackDTO.class);
 	}
 	
 	@SuppressWarnings("unused")
 	private Track convertToEntity(TrackDTO trackDTO) {
+		configModelMapper();
 		return modelMapper.map(trackDTO, Track.class);
 	}
 
+	private void configModelMapper() {
+		if(!modelMapper.getConfiguration().getMatchingStrategy().equals(MatchingStrategies.LOOSE)){
+			modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.LOOSE);
+		}
+	}
 }
